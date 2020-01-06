@@ -594,7 +594,7 @@ final class Http2ConnectionProcessor implements Http2Processor
             $onPush = $stream->request->getPushHandler();
 
             try {
-                yield call($onPush, $stream->request, $stream->pendingResponse->promise());
+                yield call($onPush, $stream->request, $stream->pendingResponse->promise(), $tokenSource);
             } catch (HttpException | StreamException | CancelledException $exception) {
                 $tokenSource->cancel($exception);
             } catch (\Throwable $exception) {
